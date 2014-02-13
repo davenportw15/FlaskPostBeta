@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ session["username"] }}{% endblock %}
+{% block content %}
+<h1>{{ session["username"] }}</h1>
+<a href="{{ url_for('new_post') }}"><button>New Post</button></a>
+<br />
+{% for post in posts.list_posts_by_username(session["username"]) %}
+        <div class="card">
+            <h1>{{ post["date"] }}</h1>
+            <p>{{ post["comment"] }}</p>
+        </div>
+{% endfor %}
+{% endblock %}

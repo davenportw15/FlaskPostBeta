@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <!-- <script type="text/javascript" src="/javascript/jQuery.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script type="text/javascript">
+            {% block javascript %}{% endblock %}
+        </script>
+        <style type="text/css">
+            {% block css %}{% endblock %}
+        </style>
+    </head>
+    <body>
+        <div id="navigation_bar_wrapper">
+            <div id="navigation_bar">
+                <p id="site_title">Posts</p>
+                {% block navigation_bar %}{% endblock %}
+            </div>
+        </div>
+        <div id="content_wrapper">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
