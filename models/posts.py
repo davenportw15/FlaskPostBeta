@@ -28,6 +28,13 @@ class Posts(object):
             return formatted_post
 
     def format_date(self, date):
+        def add_zero(n):
+            n = str(n)
+            if len(n) > 1:
+                return n
+            else:
+                return "0%s" % n
+
         month_names = {
             1:"January",
             2:"February",
@@ -43,7 +50,18 @@ class Posts(object):
             12:"December"
         }
 
-        return "%s %d, %d" % (month_names[date.month], date.day, date.year)
+        today = datetime.now()
+        if today.day == date.day and today.month == date.month and today.year == date.year:
+            return "%s:%s:%s" % (add_zero(date.hour), add_zero(date.minute), add_zero(date.second))
+        elif today.year == date.year:
+            return "%s %d, %s:%s" % (month_names[date.month],
+                                     date.day, add_zero(date.hour),
+                                     add_zero(date.minute))
+        else:
+            return "%s %d %d, %s:%s" % (month_names[date.month],
+                                        date.day, date.year,
+                                        add_zero(date.hour),
+                                        add_zero(date.minute))
 
     def get_post_by_id(self, id, format_date=True):
         if self.post_exists(id):

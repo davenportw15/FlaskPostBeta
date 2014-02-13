@@ -49,9 +49,18 @@ def login():
 @app.route("/user/me")
 def me():
     if "username" in session:
-        return render_template("me.html", posts=posts)
+        return render_template("view_user.html", posts=posts, username=session["username"], me=True)
     else:
         return redirect(url_for("login"))
+
+@app.route("/user/<username>")
+def view_user(username):
+    if "username" in session and session["username"] == username:
+        return redirect(url_for("me"))
+    elif users.user_exists(username):
+        return render_template("view_user.html", posts=posts, username=username, me=False)
+    else:
+        return "User not found..."
 
 @app.route("/user/me/post", methods=["GET", "POST"])
 def new_post():

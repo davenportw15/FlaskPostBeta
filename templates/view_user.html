@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block content %}
+<h1>{{ username }}</h1>
+ <!--
+ Implement post deletion if me is True
+ Me?: {{ me }}
+  -->
+{% for post in posts.list_posts_by_username(username) %}
+        <div class="card">
+            <h1>{{ post["date"] }}</h1>
+            <p>{{ post["comment"] }}</p>
+        </div>
+{% endfor %}
+{% endblock %}

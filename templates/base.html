@@ -16,6 +16,15 @@
             <div id="navigation_bar">
                 <p id="site_title">Posts</p>
                 {% block navigation_bar %}{% endblock %}
+                <span id="navigation_buttons">
+                    {% if "username" in session %}
+                        <span class="navigation_link"><a href="{{ url_for('me') }}">{{ session["username"] }}</a></span>
+                        <span class="navigation_link"><a href="{{ url_for('new_post') }}">New Post</a></span>
+                        <span class="navigation_link"><a href="{{ url_for('login') }}">Logout</a></span>
+                    {% else %}
+                        <span class="navigation_link"><a href="{{ url_for('new_user') }}">New User</a></span>
+                    {% endif %}
+                </span>
             </div>
         </div>
         <div id="content_wrapper">
