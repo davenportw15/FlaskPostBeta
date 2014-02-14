@@ -6,9 +6,13 @@ from flask import Flask, request, session, render_template, url_for, redirect, f
 from sqlite3 import connect
 from models.users import Users
 from models.posts import Posts
+import os
 
 app = Flask(__name__)
-connection = connect("models/db.sqlite3", check_same_thread=False)
+connection = connect(
+    "%s/models/db.sqlite3" % (os.path.dirname(os.path.realpath(__file__))),
+    check_same_thread=False
+)
 users = Users(connection)
 posts = Posts(connection)
 
