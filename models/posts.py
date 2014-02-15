@@ -35,6 +35,21 @@ class Posts(object):
             else:
                 return "0%s" % n
 
+        def am_or_pm(hour):
+            if hour > 12:
+                return "P.M."
+            else:
+                return "A.M."
+
+        def convert_to_standard_time(hour):
+            if am_or_pm(hour) == "A.M.":
+                if hour == 0:
+                    return "12"
+                else:
+                    return add_zero(hour)
+            else:
+                return add_zero(hour-12)
+
         month_names = {
             1:"January",
             2:"February",
@@ -52,16 +67,25 @@ class Posts(object):
 
         today = datetime.now()
         if today.day == date.day and today.month == date.month and today.year == date.year:
-            return "%s:%s:%s" % (add_zero(date.hour), add_zero(date.minute), add_zero(date.second))
+            return "%s:%s:%s %s" % (convert_to_standard_time(date.hour),
+                                    add_zero(date.minute),
+                                    add_zero(date.second),
+                                    am_or_pm(date.hour)
+            )
         elif today.year == date.year:
-            return "%s %d, %s:%s" % (month_names[date.month],
-                                     date.day, add_zero(date.hour),
-                                     add_zero(date.minute))
+            return "%s %d, %s:%s %s" % (month_names[date.month],
+                                        date.day,convert_to_standard_time(date.hour),
+                                        add_zero(date.minute),
+                                        am_or_pm(date.hour)
+            )
+
         else:
             return "%s %d %d, %s:%s" % (month_names[date.month],
                                         date.day, date.year,
-                                        add_zero(date.hour),
-                                        add_zero(date.minute))
+                                        convert_to_standard_time(date.hour),
+                                        add_zero(date.minute),
+                                        am_or_pm(date.hour)
+            )
 
     def get_post_by_id(self, id, format_date=True):
         if self.post_exists(id):

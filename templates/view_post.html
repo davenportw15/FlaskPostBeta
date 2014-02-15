@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ post["username"] }}'s Post {% endblock %}
+{% block title_path %}{{ post["username"] }}'s Post {% endblock %}
+{% block content %}
+<h1>{{ post["date"] }}</h1>
+<p>{{ post["comment"] }}</p>
+{% endblock %}

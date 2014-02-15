@@ -5,7 +5,6 @@
         <!-- <script type="text/javascript" src="/javascript/jQuery.js"></script> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="text/javascript">
-            {% block javascript %}{% endblock %}
         </script>
         <style type="text/css">
             {% block css %}{% endblock %}
@@ -14,13 +13,14 @@
     <body>
         <div id="navigation_bar_wrapper">
             <div id="navigation_bar">
-                <p id="site_title">Posts</p>
-                {% block navigation_bar %}{% endblock %}
+                <p id="site_title">Posts &gt; {% block title_path %}{% endblock %}</p>
                 <span id="navigation_buttons">
                     {% if "username" in session %}
                         <span class="navigation_link"><a href="{{ url_for('me') }}">{{ session["username"] }}</a></span>
                         <span class="navigation_link"><a href="{{ url_for('new_post') }}">New Post</a></span>
                         <span class="navigation_link"><a href="{{ url_for('login') }}">Logout</a></span>
+                    {% elif request.path == "/user/new" %}
+                        <span class="navigation_link"><a href="{{ url_for('login') }}">Login</a></span>
                     {% else %}
                         <span class="navigation_link"><a href="{{ url_for('new_user') }}">New User</a></span>
                     {% endif %}

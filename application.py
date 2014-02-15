@@ -66,7 +66,7 @@ def view_user(username):
     else:
         return "User not found..."
 
-@app.route("/user/me/post", methods=["GET", "POST"])
+@app.route("/post", methods=["GET", "POST"])
 def new_post():
     if "username" in session:
         if request.method == "GET":
@@ -80,6 +80,13 @@ def new_post():
                 return redirect(render_template("new_post.html"))
     else:
         return redirect(url_for("login"))
+
+@app.route("/post/<post_number>")
+def view_post(post_number):
+    if posts.post_exists(post_number):
+        return render_template("view_post.html", post=posts.get_post_by_id(post_number))
+    else:
+        return "Post not found..."
 
 #start the server
 if __name__ == "__main__":
