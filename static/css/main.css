@@ -195,3 +195,15 @@ h1 {
 #find_user:focus {
     box-shadow:0px 0px 3px rgb(70,70,70) inset;
 }
+
+#user_list {
+    background-color:rgb(252,252,252);
+    border:1px rgb(200,200,160) solid;
+}
+
+#user_list td {
+    font-size:12pt;
+    font-family:sans-serif;
+    color:rgb(50,50,50);
+    padding:5px;
+}

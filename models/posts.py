@@ -5,7 +5,7 @@ Model for managing user posts
 import sqlite3
 from datetime import datetime
 
-class Posts(object):
+class Posts:
     def __init__(self, connection):
         self.db = connection
         self.cursor = self.db.cursor()
@@ -135,3 +135,10 @@ class Posts(object):
             return True
         else:
             return False
+
+    def delete_posts_by_user(self, username):
+        self.cursor.execute(
+            "delete from posts where username is ?",
+            (username,)
+        )
+        self.db.commit()

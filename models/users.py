@@ -5,7 +5,7 @@ Model for user management
 import sqlite3
 from hashlib import md5
 
-class Users(object):
+class Users:
     def __init__(self, connection):
         self.db = connection
         self.cursor = self.db.cursor()
@@ -42,11 +42,11 @@ class Users(object):
         else:
             return False
 
-    def delete_user(self, username, password):
-        if self.match_password(username, password):
+    def delete_user(self, username):
+        if self.user_exists(username):
             self.cursor.execute(
-                "delete from users where username is ? and password is ?",
-                (username, self.encrypt(password))
+                "delete from users where username is ?",
+                (username,)
             )
             self.db.commit()
             return True

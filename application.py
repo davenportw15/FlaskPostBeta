@@ -6,6 +6,7 @@ from flask import Flask, request, session, render_template, url_for, redirect, f
 from sqlite3 import connect
 from models.users import Users
 from models.posts import Posts
+from models.admin import Admin
 import os
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ connection = connect(
 )
 users = Users(connection)
 posts = Posts(connection)
+admin = Admin(connection)
 
 app.secret_key = "jfk23!,e2ffad~~~~.fad.py"
 
@@ -87,6 +89,23 @@ def view_post(post_number):
         return render_template("view_post.html", post=posts.get_post_by_id(post_number))
     else:
         return "Post not found..."
+
+@app.route("/admin")
+def list_users():
+    if "username" in session:
+        if admin.admin_exists(session["username"]):
+            return render_template("admin_list_users.html", users=users)
+        else:
+            return "%s is not an administrator..." % (session["username"])
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/delete_user", methods=["POST"])
+def delete_user():
+    if users.user_exists(request.form["username"]):
+        users.delete_user(request.form["username"])
+        posts.delete_posts_by_user(request.form["username"])
+        return redirect(url_for("list_users"))
 
 #start the server
 if __name__ == "__main__":
