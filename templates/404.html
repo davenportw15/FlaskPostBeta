@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found{% endblock %}
+{% block title_path %}Page Not Found {% endblock %}
+{% block content %}
+<h1>404: That's an error</h1>
+<p>We could not locate the page {{ request.path }}. This may mean that:</p>
+<ul>
+    <li>You typed the URL incorrectly</li>
+    <li>The post or user has been deleted</li>
+    <li>A programming error was made</li>
+</ul>
+{% endblock %}

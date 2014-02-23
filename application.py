@@ -113,7 +113,13 @@ def delete_post():
         posts.delete_post_by_id(request.form["id"])
         return redirect(url_for("me"))
 
-#start the server
+
+#Errors
+@app.errorhandler(404)
+def error_404(error):
+    return render_template("404.html"), 404
+
+#Start the server
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
