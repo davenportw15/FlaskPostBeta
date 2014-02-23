@@ -111,7 +111,10 @@ class Posts:
             (username,)
         ).fetchall()
 
-        return list(map(self.format_post_data, posts))
+        if len(posts) >= 1:
+            return list(map(self.format_post_data, posts))
+        else:
+            return None
 
     def new_post(self, username, comment):
         if username and comment:

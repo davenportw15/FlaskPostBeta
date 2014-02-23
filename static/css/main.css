@@ -207,3 +207,9 @@ h1 {
     color:rgb(50,50,50);
     padding:5px;
 }
+
+#no_posts {
+    color:rgb(120,120,120);
+    text-align:center;
+    font-style:italic;
+}

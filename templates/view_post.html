@@ -2,6 +2,12 @@
 {% block title %}{{ post["username"] }}'s Post {% endblock %}
 {% block title_path %}{{ post["username"] }}'s Post {% endblock %}
 {% block content %}
+{% if "username" in session and session["username"] == post["username"] %}
+    <form action="{{ url_for('delete_post') }}" method="POST">
+        <input type="hidden" name="id" value="{{ post['id'] }}" />
+        <input type="submit" value="Delete Post" />
+    </form>
+{% endif %}
 <h1>{{ post["date"] }}</h1>
 <p>{{ post["comment"] }}</p>
 {% endblock %}

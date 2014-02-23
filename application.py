@@ -107,6 +107,12 @@ def delete_user():
         posts.delete_posts_by_user(request.form["username"])
         return redirect(url_for("list_users"))
 
+@app.route("/delete_post", methods=["POST"])
+def delete_post():
+    if posts.post_exists(request.form["id"]):
+        posts.delete_post_by_id(request.form["id"])
+        return redirect(url_for("me"))
+
 #start the server
 if __name__ == "__main__":
     app.run(
