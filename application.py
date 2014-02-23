@@ -37,7 +37,8 @@ def new_user():
             session["username"] = request.form["username"]
             return redirect(url_for("me"))
         else:
-            return "Sorry, the username %s has already been taken" % request.form["username"]
+            flash("The username %s has already been taken" % request.form["username"])
+            return redirect(url_for("new_user"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -66,7 +67,7 @@ def view_user(username):
     elif users.user_exists(username):
         return render_template("view_user.html", posts=posts, username=username, me=False)
     else:
-        return "User not found..."
+        return render_template("user_not_found.html", username=username)
 
 @app.route("/post", methods=["GET", "POST"])
 def new_post():
@@ -88,7 +89,7 @@ def view_post(post_number):
     if posts.post_exists(post_number):
         return render_template("view_post.html", post=posts.get_post_by_id(post_number))
     else:
-        return "Post not found..."
+        return render_template("post_not_found.html", id=post_number)
 
 @app.route("/admin")
 def list_users():
@@ -96,8 +97,10 @@ def list_users():
         if admin.admin_exists(session["username"]):
             return render_template("admin_list_users.html", users=users)
         else:
-            return "%s is not an administrator..." % (session["username"])
+            flash("%s is not an administrator" % session["username"])
+            return redirect(url_for("login"))
     else:
+        flash("Log in as an administrator to access that page")
         return redirect(url_for("login"))
 
 @app.route("/delete_user", methods=["POST"])

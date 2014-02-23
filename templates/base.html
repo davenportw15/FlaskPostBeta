@@ -30,6 +30,11 @@
         </div>
         <div id="content_wrapper">
             <div id="content">
+                {% with messages = get_flashed_messages() %}
+                    {% for message in messages %}
+                        <p class="message">{{ message }}</p>
+                    {% endfor %}
+                {% endwith %}
                 {% block content %}{% endblock %}
             </div>
         </div>
