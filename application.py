@@ -113,6 +113,10 @@ def delete_post():
         posts.delete_post_by_id(request.form["id"])
         return redirect(url_for("me"))
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 
 #Errors
 @app.errorhandler(404)

@@ -219,3 +219,7 @@ li {
     font-family:sans-serif;
     font-size:12pt;
 }
+
+.about_link {
+    color:rgb(25,90,205);
+}
